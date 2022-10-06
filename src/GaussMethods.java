@@ -37,7 +37,7 @@ public class GaussMethods {
             }
             actualError = maxValueActualMBefore/maxValueActual;
             numberInteractions += 1;
-            printResult(matrizResult,numberInteractions);
+            printResult(matrizResult,numberInteractions,actualError);
             if(numberInteractions == 100)
                 throw new GaussException("Número de interações máximo atingido");
         }while(actualError > E);
@@ -74,7 +74,7 @@ public class GaussMethods {
             }
             actualError = maxValueActualMBefore/maxValueActual;
             numberInteractions += 1;
-            printResult(matrizResult,numberInteractions);
+            printResult(matrizResult,numberInteractions,actualError);
             if(numberInteractions == 100)
                 throw new GaussException("Número de interações máximo atingido");
         }while(actualError > E);
@@ -82,14 +82,14 @@ public class GaussMethods {
         return matrizResult;
     }
 
-    public static void printResult(double[] matriz, int interactions){
+    public static void printResult(double[] matriz, int interactions, double actualError){
         StringBuilder sbr = new StringBuilder();
         DecimalFormat df = new DecimalFormat("0.0000");
 
 
         sbr.append("Interaction: ").append(interactions).append(" |");
         for (int i = 0; i < matriz.length; i++) {
-            sbr.append(" x").append(i+1).append(" = ").append(df.format(matriz[i])).append(" |");
+            sbr.append(" x").append(i+1).append(" = ").append(df.format(matriz[i])).append(" |").append(" erro atual: ").append(df.format(actualError));
         }
         System.out.println(sbr);
     }
