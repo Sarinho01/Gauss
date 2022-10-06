@@ -89,8 +89,9 @@ public class GaussMethods {
 
         sbr.append("Interaction: ").append(interactions).append(" |");
         for (int i = 0; i < matriz.length; i++) {
-            sbr.append(" x").append(i+1).append(" = ").append(df.format(matriz[i])).append(" |").append(" erro atual: ").append(df.format(actualError));
+            sbr.append(" x").append(i+1).append(" = ").append(df.format(matriz[i])).append(" |");
         }
+        sbr.append(" erro atual: ").append(df.format(actualError));
         System.out.println(sbr);
     }
 
