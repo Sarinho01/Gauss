@@ -84,7 +84,7 @@ public class GaussMethods {
 
     public static void printResult(double[] matriz, int interactions, double actualError){
         StringBuilder sbr = new StringBuilder();
-        DecimalFormat df = new DecimalFormat("0.0000");
+        DecimalFormat df = new DecimalFormat("0.00000");
 
 
         sbr.append("Interaction: ").append(interactions).append(" |");
