@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Program {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        GaussMethods user = new GaussMethods();
+        Methods user = new Methods();
 
         try {
             UI.setMatriz(user, input);
@@ -21,17 +21,22 @@ public class Program {
                 switch (optionValue) {
                     case 0:
                         return;
+                    case 1:
+                        Methods.gauss(user.getMatrizLetters(), user.getMatrizNumbers());
+                        break;
                     case 2:
-                        GaussMethods.gaussJacobi(user.getMatrizLetters(), user.getMatrizNumbers(), user.getError());
+                        Methods.gaussJacobi(user.getMatrizLetters(), user.getMatrizNumbers(), user.getError());
                         break;
                     case 3:
-                        GaussMethods.gaussSeidel(user.getMatrizLetters(), user.getMatrizNumbers(), user.getError());
+                        Methods.gaussSeidel(user.getMatrizLetters(), user.getMatrizNumbers(), user.getError());
                         break;
                     case 4:
+                        System.out.println("GAUSS: ");
+                        Methods.gauss(user.getMatrizLetters(), user.getMatrizNumbers());
                         System.out.println("JACOBI: ");
-                        GaussMethods.gaussJacobi(user.getMatrizLetters(), user.getMatrizNumbers(), user.getError());
+                        Methods.gaussJacobi(user.getMatrizLetters(), user.getMatrizNumbers(), user.getError());
                         System.out.println("SEIDEL: ");
-                        GaussMethods.gaussSeidel(user.getMatrizLetters(), user.getMatrizNumbers(), user.getError());
+                        Methods.gaussSeidel(user.getMatrizLetters(), user.getMatrizNumbers(), user.getError());
                         break;
                     case 5:
                         UI.setMatriz(user, input);
@@ -39,6 +44,8 @@ public class Program {
                     case 6:
                         UI.setError(user, input);
                         break;
+                    case 7:
+                        UI.interpolacao(input);
                     default:
                         System.out.println("Opção inválida!");
                         break;
@@ -46,7 +53,7 @@ public class Program {
             }catch (GaussException e){
                 System.out.println(e.getMessage());
             }catch (Exception e){
-                System.out.println("input inválido");
+               e.printStackTrace();
             }
         }
 

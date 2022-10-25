@@ -9,15 +9,48 @@ public class UI {
                 4 - Utilizar os 3 métodos e comparar depois
                 5 - Mudar a matriz
                 6 - Mudar o erro
+                7 - Interpolação
                 0 - Fechar o programa
                 Opção escolhida:\040""");
     }
 
-    public static void setMatriz(GaussMethods user , Scanner input) {
+    public static void printMenuPolarizacao(){
+        System.out.println("""
+                1 - Interpolação polinomial
+                0 - Voltar
+                Opção escolhida:\040""");
 
 
 
-        System.out.println("Digite a quantidade de váriaveis: ");
+    }
+    public static void interpolacao(Scanner input){
+        System.out.print("Digite quantos pontos x/y vai ter a tabela: ");
+        int pointSize = input.nextInt();
+        double[] xNumbers = new double[pointSize];
+        double[] yNumbers = new double[pointSize];
+        for (int i = 0; i < pointSize; i++) {
+            System.out.print("Digite o valor do ponto x"+(i+1)+": ");
+            xNumbers[i] = input.nextDouble();
+            System.out.print("Digite o valor do ponto y"+(i+1)+": ");
+            yNumbers[i] = input.nextDouble();
+
+        }
+
+        UI.printMenuPolarizacao();
+        int option = input.nextInt();
+        switch(option){
+            case 0: return;
+            case 1:
+                Methods.interpolarizacaoPolinomial(xNumbers, yNumbers);
+                break;
+        }
+    }
+
+    public static void setMatriz(Methods user , Scanner input) {
+
+
+
+        System.out.print("Digite a quantidade de váriaveis: ");
         int numberOfVariable = input.nextInt();
 
         user.setMatrizLetters(UI.changeMatrizLetters(numberOfVariable, input));
@@ -49,7 +82,7 @@ public class UI {
         return matrizNumber;
     }
 
-    public static void setError(GaussMethods user, Scanner input) {
+    public static void setError(Methods user, Scanner input) {
         System.out.println("Digite o valor do erro: ");
         user.setError(input.nextDouble());
     }
