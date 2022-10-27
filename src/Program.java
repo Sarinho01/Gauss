@@ -16,13 +16,14 @@ public class Program {
             try {
                 UI.printMenu();
                 int optionValue = input.nextInt();
-
+                double[] result;
 
                 switch (optionValue) {
                     case 0:
                         return;
                     case 1:
-                        Methods.gauss(user.getMatrizLetters(), user.getMatrizNumbers());
+                         result = Methods.gauss(user.getMatrizLetters(), user.getMatrizNumbers());
+                         Methods.printResultSE(result, 1);
                         break;
                     case 2:
                         Methods.gaussJacobi(user.getMatrizLetters(), user.getMatrizNumbers(), user.getError());
@@ -32,7 +33,8 @@ public class Program {
                         break;
                     case 4:
                         System.out.println("GAUSS: ");
-                        Methods.gauss(user.getMatrizLetters(), user.getMatrizNumbers());
+                        result = Methods.gauss(user.getMatrizLetters(), user.getMatrizNumbers());
+                        Methods.printResultSE(result, 1);
                         System.out.println("JACOBI: ");
                         Methods.gaussJacobi(user.getMatrizLetters(), user.getMatrizNumbers(), user.getError());
                         System.out.println("SEIDEL: ");

@@ -45,7 +45,7 @@ public class Methods {
             }
             x[i] = (matrizNumbers[i] - sum) / matrizLetters[i][i];
         }
-        printResultSE(x, 1);
+
         return x;
     }
 
@@ -163,6 +163,24 @@ public class Methods {
         }
 
         System.out.println(sbr);
+    }
+
+    public static void printResultI(double[] matriz) {
+        StringBuilder sbr = new StringBuilder();
+        DecimalFormat df = new DecimalFormat("0.00000");
+        double value = matriz[0];
+        if (value != 0) sbr.append(value);
+        for (int i = 1; i < matriz.length; i++) {
+            value = matriz[i];
+            if (value != 0) {
+
+                if(value > 0) sbr.append("+");
+                sbr.append(df.format(value));
+                sbr.append("x^"+i);
+            }
+        }
+        System.out.println(sbr);
+
     }
 
     public double[][] getMatrizLetters() {

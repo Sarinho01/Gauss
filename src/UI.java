@@ -38,10 +38,12 @@ public class UI {
 
         UI.printMenuPolarizacao();
         int option = input.nextInt();
+        double[] result;
         switch(option){
             case 0: return;
             case 1:
-                Methods.interpolarizacaoPolinomial(xNumbers, yNumbers);
+                result = Methods.interpolarizacaoPolinomial(xNumbers, yNumbers);
+                Methods.printResultI(result);
                 break;
         }
     }
