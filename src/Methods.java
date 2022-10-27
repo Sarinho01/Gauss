@@ -3,6 +3,7 @@ import java.text.DecimalFormat;
 public class Methods {
     private double[][] matrizLetters;
     private double[] matrizNumbers;
+    private double[] interpolation;
     private double error;
 
 
@@ -169,18 +170,24 @@ public class Methods {
         StringBuilder sbr = new StringBuilder();
         DecimalFormat df = new DecimalFormat("0.00000");
         double value = matriz[0];
-        if (value != 0) sbr.append(value);
+        if (value != 0) sbr.append("(").append(value).append(") ");
         for (int i = 1; i < matriz.length; i++) {
             value = matriz[i];
             if (value != 0) {
-
-                if(value > 0) sbr.append("+");
-                sbr.append(df.format(value));
-                sbr.append("x^"+i);
+                sbr.append("+ (").append(df.format(value));
+                sbr.append("x^"+i).append(") ");
             }
         }
         System.out.println(sbr);
 
+    }
+
+    public double[] getInterpolation() {
+        return interpolation;
+    }
+
+    public void setInterpolation(double[] interpolation) {
+        this.interpolation = interpolation;
     }
 
     public double[][] getMatrizLetters() {
