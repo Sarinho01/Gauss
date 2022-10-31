@@ -1,8 +1,18 @@
+import entities.Methods;
+import exceptions.GaussException;
+
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class UI {
+    public static void clearConsole() {
+        System.out.print("\n\n\n\n\n\n\n\n");
+    }
+
     public static void printMenu() {
+        UI.clearConsole();
         System.out.print("""
+                -------(METHODS SARO)-------
                 1 - Resolver sistemas
                 2 - Interpolação
                 0 - Fechar o programa
@@ -10,7 +20,9 @@ public class UI {
     }
 
     public static void printMenuGauss() {
+        UI.clearConsole();
         System.out.print("""
+                -------(METHODS SARO)-------
                 1 - Usar método de Gauss
                 2 - Usar método de Gauss-Jacobi
                 3 - Usar método de Gauss-Seidel
@@ -22,7 +34,9 @@ public class UI {
     }
 
     public static void printMenuPolarizacao() {
-        System.out.print("""
+        UI.clearConsole();
+        System.out.print(""" 
+                -------(METHODS SARO)-------
                 1 - Mostrar equação
                 2 - Mudar os pontos
                 3 - Achar o valor de Y usando X
@@ -34,8 +48,12 @@ public class UI {
         try {
             UI.setMatriz(user, input);
             UI.setError(user, input);
-        } catch (Exception e) {
+        } catch (InputMismatchException e) {
+            System.out.println("Opção inválida");
+            input.next();
             return;
+        } catch (Exception e) {
+            System.out.println("ERROR: " + e.getMessage());
         }
 
         while (true) {
@@ -77,9 +95,12 @@ public class UI {
                         break;
                 }
             } catch (GaussException e) {
-                System.out.println(e.getMessage());
+                System.out.println("ERRO NO CÁLCULO DO SISTEMA: "+ e.getMessage());
+            } catch (InputMismatchException e) {
+                System.out.println("Valor inválido.");
+                input.next();
             } catch (Exception e) {
-                e.printStackTrace();
+                System.out.println("ERRO: "+e.getMessage());
             }
         }
     }
@@ -87,8 +108,13 @@ public class UI {
     public static void interpolacao(Scanner input, Methods user) {
         try {
             UI.setPoints(user, input);
-        } catch (Exception e) {
+        } catch (InputMismatchException e) {
             System.out.println("Valor inválido");
+            input.next();
+        } catch (GaussException e){
+            System.out.println("ERRO NO CÁLCULO DO SISTEMA: "+ e.getMessage());
+        } catch (Exception e){
+            System.out.println("ERRO: "+e.getMessage());
         }
 
         while (true) {
@@ -110,9 +136,13 @@ public class UI {
                         System.out.println("Opção inválida");
                         break;
                 }
-            }catch (Exception e){
+            }  catch (InputMismatchException e) {
                 System.out.println("Valor inválido");
-
+                input.next();
+            } catch (GaussException e){
+                System.out.println("ERRO NO CÁLCULO DO SISTEMA: "+ e.getMessage());
+            } catch (Exception e){
+                System.out.println("ERRO: "+e.getMessage());
             }
 
         }
@@ -129,7 +159,7 @@ public class UI {
         System.out.println(result);
     }
 
-    public static void setPoints(Methods user, Scanner input) {
+    public static void setPoints(Methods user, Scanner input) throws GaussException {
         System.out.print("Digite quantos pontos x/y vai ter a tabela: ");
         int pointSize = input.nextInt();
         double[] xNumbers = new double[pointSize];
