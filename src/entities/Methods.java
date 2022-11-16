@@ -10,48 +10,30 @@ public class Methods {
     private double[] interpolation;
     private double error;
 
+    public static double[] gauss(double[][] matrizLetters, double[] matrizNumbers) {
+        double[] result = new double[matrizNumbers.length];
 
-    public static double[] gauss(double[][] matrizLetters, double[] matrizNumbers) throws GaussException {
-        double nuloNum = 1e-5;
-
-        for (int p = 0; p < matrizNumbers.length; p++) {
-
-            int max = p;
-            for (int i = p + 1; i < matrizNumbers.length; i++) {
-                if (Math.abs(matrizLetters[i][p]) > Math.abs(matrizLetters[max][p])) {
-                    max = i;
+        for (int i = 1; i < matrizLetters.length; i++) {
+            double multNumber;
+            int actualLine = 0;
+            for (int j = 0; j < i; j++) {
+                multNumber = matrizLetters[i][j]/matrizLetters[actualLine][j];
+                for (int k = j; k < matrizLetters.length; k++) {
+                    matrizLetters[i][k] = matrizLetters[actualLine][k]*multNumber - matrizLetters[i][k];
                 }
-            }
-            double[] temp = matrizLetters[p];
-            matrizLetters[p] = matrizLetters[max];
-            matrizLetters[max] = temp;
-            double t = matrizNumbers[p];
-            matrizNumbers[p] = matrizNumbers[max];
-            matrizNumbers[max] = t;
-
-            if (Math.abs(matrizLetters[p][p]) <= nuloNum) {
-                throw new GaussException("Determinante é 0");
-            }
-
-            for (int i = p + 1; i < matrizNumbers.length; i++) {
-                double alpha = matrizLetters[i][p] / matrizLetters[p][p];
-                matrizNumbers[i] -= alpha * matrizNumbers[p];
-                for (int j = p; j < matrizNumbers.length; j++) {
-                    matrizLetters[i][j] -= alpha * matrizLetters[p][j];
-                }
+                matrizNumbers[i] = matrizNumbers[actualLine]*multNumber - matrizNumbers[i];
+                actualLine++;
             }
         }
-
-        double[] x = new double[matrizNumbers.length];
-        for (int i = matrizNumbers.length - 1; i >= 0; i--) {
-            double sum = 0.0;
-            for (int j = i + 1; j < matrizNumbers.length; j++) {
-                sum += matrizLetters[i][j] * x[j];
+        for (int i = 0; i < matrizLetters.length; i++) {
+            double numberValue = matrizNumbers[matrizNumbers.length-1-i];
+            for (int j = 0; j < i; j++) {
+                numberValue -= matrizLetters[matrizLetters.length-1-i][matrizLetters.length-1-j]*result[result.length-1-j];
             }
-            x[i] = (matrizNumbers[i] - sum) / matrizLetters[i][i];
+            numberValue /= matrizLetters[matrizLetters.length-1-i][matrizLetters.length-1-i];
+            result[result.length-1-i] = numberValue;
         }
-
-        return x;
+        return result;
     }
 
     public static double[] gaussJacobi(double[][] matriz, double[] matrizNumbers, double E) throws GaussException {
@@ -126,7 +108,7 @@ public class Methods {
         return matrizResult;
     }
 
-    public static double[] interpolarizacaoPolinomial(double[] xNumbers, double[] yNumbers) throws GaussException {
+    public static double[] interpolarizacaoPolinomial(double[] xNumbers, double[] yNumbers) {
         int n = yNumbers.length;
         double[] equationResult;
         double[][] matrizLetter = new double[n][n];
